@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link rel="stylesheet" href="tft-items.css" />
+    <script>
+      var ipcRenderer = require('electron').ipcRenderer;
+      ipcRenderer.on('changeLanguage', function(event, lang) {
+        if (lang)
+          Object.entries(lang).forEach(([item, text]) => {
+            document.getElementsByName(item).forEach(elem => {
+              elem.innerHTML = text.description;
+            });
+          });
+      });
+
+      var currentItemName;
+
+      function display(elm) {
+        var itemName = elm.getAttribute('id');
+        var itemElement = document.getElementById(itemName + '-combinations');
+        var itemElementImage = document.getElementById(itemName + '-image');
+
+        if (currentItemName === itemName) {
+          itemElement.style.display = 'none';
+          itemElementImage.style.borderColor = '#343f57';
+          currentItemName = null;
+        } else if (currentItemName && currentItemName !== itemName) {
+          var currentElement = document.getElementById(
+            currentItemName + '-combinations'
+          );
+          var currentElementImage = document.getElementById(
+            currentItemName + '-image'
+          );
+          currentElementImage.style.borderColor = '#343f57';
+          currentElement.style.display = 'none';
+          itemElementImage.style.borderColor = '#a1acc3';
+          itemElement.style.display = 'block';
+          currentItemName = itemName;
+        } else {
+          itemElementImage.style.borderColor = '#a1acc3';
+          itemElement.style.display = 'block';
+          currentItemName = itemName;
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="items-bar">
+      <div class="items-list hover-list">
+        <!-- Sparring ---------------------- -->
+        <label for="sparring" class="item hover-item item-sparring">
+          <input id="sparring" type="checkbox" onclick="display(this)" />
+          <div class="item-image" id="sparring-image">
+            <img
+              class="new"
+              src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/sparringgloves.png"
+            />
+          </div>
+          <div class="combinations" id="sparring-combinations">
+            <div class="items-list">
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/sparringgloves.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/thiefsgloves.png"
+                  />
+                </div>
+                <div class="item-description" name="thiefsgloves">
+                  This item takes all three item slots. On round begin, copy two
+                  random items.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/bfsword.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/infinityedge.png"
+                  />
+                </div>
+                <div class="item-description" name="infinityedge">
+                  Critical Strikes deal +150% damage.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/needlesslylargerod.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/jeweledgauntlet.png"
+                  />
+                </div>
+                <div class="item-description" name="jeweledgauntlet">
+                  Wearer's abilities can critically strike.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/recurvebow.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/repeatingcrossbow.png"
+                  />
+                </div>
+                <div class="item-description" name="repeatingcrossbow">
+                  On death, this jumps to an allied champion and grants an
+                  additional 20% Attack Speed & Critical Strike chance.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/tearofthegoddess.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/handofjustice.png"
+                  />
+                </div>
+                <div class="item-description" name="handofjustice">
+                  On round start, either gain 40% more damage or 40 life on hit.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/chainvest.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/iceborngauntlet.png"
+                  />
+                </div>
+                <div class="item-description" name="iceborngauntlet">
+                  On dodge, create an expandable zone that lowers Attack Speed
+                  by 35%.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/negatroncloak.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/quicksilver.png"
+                  />
+                </div>
+                <div class="item-description" name="quicksilver">
+                  Prevents the next crowd control effect applied to the wearer.
+                  Refreshes every 5 seconds.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/giantsbelt.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/trapclaw.png"
+                  />
+                </div>
+                <div class="item-description" name="trapclaw">
+                  On combat begin, gain a spell shield. When it breaks, stun the
+                  champion who broke the shield.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/spatula.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/mittens.png"
+                  />
+                </div>
+                <div class="item-description" name="mittens">
+                  Extra 10% Crit chance and 10% Dodge chance. Wearer is also a
+                  Yordle.
+                </div>
+              </div>
+            </div>
+          </div>
+        </label>
+        <!-- BF sword ---------------------- -->
+        <label for="bf" class="item hover-item item-bf">
+          <input id="bf" type="checkbox" onclick="display(this)" />
+          <div class="item-image" id="bf-image">
+            <img
+              src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/bfsword.png"
+            />
+          </div>
+          <div class="combinations" id="bf-combinations">
+            <div class="items-list">
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/sparringgloves.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/infinityedge.png"
+                  />
+                </div>
+                <div class="item-description" name="infinityedge">
+                  Critical Strikes deal +150% damage.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/bfsword.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into new"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/deathblade.png"
+                  />
+                </div>
+                <div class="item-description" name="deathblade">
+                  On a kill or assist, gain an additional 15 Attack Damage until
+                  end of combat (Stacks infinitely).
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/needlesslylargerod.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/hextechgunblade.png"
+                  />
+                </div>
+                <div class="item-description" name="hextechgunblade">
+                  Heal for 25% of all damage dealt.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/recurvebow.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into new"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/giantslayer.png"
+                  />
+                </div>
+                <div class="item-description" name="giantslayer">
+                  Attacks deal an additional 5% enemy max Health as True Damage.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/tearofthegoddess.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/spearofshojin.png"
+                  />
+                </div>
+                <div class="item-description" name="spearofshojin">
+                  After casting, gain 15% of max mana per attack.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/chainvest.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/guardianangel.png"
+                  />
+                </div>
+                <div class="item-description" name="guardianangel">
+                  Revives champion with 500 HP after 2 seconds.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/negatroncloak.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/bloodthirster.png"
+                  />
+                </div>
+                <div class="item-description" name="bloodthirster">
+                  Attacks heal for 40% of damage.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/giantsbelt.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/zekesherald.png"
+                  />
+                </div>
+                <div class="item-description" name="zekesherald">
+                  On start of combat, allies 2 spaces to the left and right gain
+                  +15% Attack Speed.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/spatula.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/youmuusghostblade.png"
+                  />
+                </div>
+                <div class="item-description" name="youmuusghostblade">
+                  Wearer is also an Assassin.
+                </div>
+              </div>
+            </div>
+          </div>
+        </label>
+        <!-- Large Rod ---------------------- -->
+        <label for="largerod" class="item hover-item item-bf">
+          <input id="largerod" type="checkbox" onclick="display(this)" />
+          <div class="item-image" id="largerod-image">
+            <img
+              src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/needlesslylargerod.png"
+            />
+          </div>
+          <div class="combinations" id="largerod-combinations">
+            <div class="items-list">
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/sparringgloves.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into new"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/jeweledgauntlet.png"
+                  />
+                </div>
+                <div class="item-description" name="jeweledgauntlet">
+                  Wearer's abilities can critically strike.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/bfsword.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/hextechgunblade.png"
+                  />
+                </div>
+                <div class="item-description" name="hextechgunblade">
+                  Heal for 25% of all damage dealt.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/needlesslylargerod.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/rabadonsdeathcap.png"
+                  />
+                </div>
+                <div class="item-description" name="rabadonsdeathcap">
+                  Wearer's Ability Damage increased by 50%.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/recurvebow.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/guinsoosrageblade.png"
+                  />
+                </div>
+                <div class="item-description" name="guinsoosrageblade">
+                  Attacks give 5% Attack Speed. Stacks infinitely.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/tearofthegoddess.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/ludensecho.png"
+                  />
+                </div>
+                <div class="item-description" name="ludensecho">
+                  Deal 200 splash damage on ability hit.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/chainvest.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/locketoftheironsolari.png"
+                  />
+                </div>
+                <div class="item-description" name="locketoftheironsolari">
+                  On start of combat, allies 2 spaces to the left and right gain
+                  250 shield for 6s.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/negatroncloak.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/ionicspark.png"
+                  />
+                </div>
+                <div class="item-description" name="ionicspark">
+                  Whenever an enemy casts a spell they take 150 true damage.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/giantsbelt.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/morellonomicon.png"
+                  />
+                </div>
+                <div class="item-description" name="morellonomicon">
+                  Spells burn for 20% of max HP over 10s and reduces healing by
+                  80%.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/spatula.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/yuumi.png"
+                  />
+                </div>
+                <div class="item-description" name="yuumi">
+                  Wearer is also a Sorcerer.
+                </div>
+              </div>
+            </div>
+          </div>
+        </label>
+        <!-- Recurve Bow ---------------------- -->
+        <label for="recurvebow" class="item hover-item item-bf">
+          <input id="recurvebow" type="checkbox" onclick="display(this)" />
+          <div class="item-image" id="recurvebow-image">
+            <img
+              src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/recurvebow.png"
+            />
+          </div>
+          <div class="combinations" id="recurvebow-combinations">
+            <div class="items-list">
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/sparringgloves.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into new"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/repeatingcrossbow.png"
+                  />
+                </div>
+                <div class="item-description" name="repeatingcrossbow">
+                  On death, this jumps to an allied champion and grants an
+                  additional 20% Attack Speed & Critical Strike chance.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/bfsword.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into new"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/giantslayer.png"
+                  />
+                </div>
+                <div class="item-description" name="giantslayer">
+                  Attacks deal an additional 5% enemy max Health as True Damage.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/needlesslylargerod.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/guinsoosrageblade.png"
+                  />
+                </div>
+                <div class="item-description" name="guinsoosrageblade">
+                  Attacks give 5% Attack Speed. Stacks infinitely.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/recurvebow.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/rapidfirecannon.png"
+                  />
+                </div>
+                <div class="item-description" name="rapidfirecannon">
+                  Attack Range is doubled.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/tearofthegoddess.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/statikkshiv.png"
+                  />
+                </div>
+                <div class="item-description" name="statikkshiv">
+                  Every 3rd attack deals 100 magical damage to 3 total enemies.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/chainvest.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/phantomdancer.png"
+                  />
+                </div>
+                <div class="item-description" name="phantomdancer">
+                  Wearer dodges all Critical Strikes (including ability crits).
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/negatroncloak.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/cursedblade.png"
+                  />
+                </div>
+                <div class="item-description" name="cursedblade">
+                  Attacks have a 20% chance to Shrink (-1 enemy star, down to
+                  level 0).
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/giantsbelt.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/titanichydra.png"
+                  />
+                </div>
+                <div class="item-description" name="titanichydra">
+                  Attacks deal 3% Max Health to target and adjacent enemies
+                  behind them.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/spatula.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/bladeoftheruinedking.png"
+                  />
+                </div>
+                <div class="item-description" name="bladeoftheruinedking">
+                  Wearer is also a Blademaster.
+                </div>
+              </div>
+            </div>
+          </div>
+        </label>
+        <!-- Tear ---------------------- -->
+        <label for="tear" class="item hover-item item-bf">
+          <input id="tear" type="checkbox" onclick="display(this)" />
+          <div class="item-image" id="tear-image">
+            <img
+              src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/tearofthegoddess.png"
+            />
+          </div>
+          <div class="combinations" id="tear-combinations">
+            <div class="items-list">
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/sparringgloves.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into new"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/handofjustice.png"
+                  />
+                </div>
+                <div class="item-description" name="handofjustice">
+                  On round start, either gain 40% more damage or 40 life on hit.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/bfsword.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/spearofshojin.png"
+                  />
+                </div>
+                <div class="item-description" name="spearofshojin">
+                  After casting, gain 15% of max mana per attack.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/needlesslylargerod.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/ludensecho.png"
+                  />
+                </div>
+                <div class="item-description" name="ludensecho">
+                  Deal 200 splash damage on ability hit.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/recurvebow.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/statikkshiv.png"
+                  />
+                </div>
+                <div class="item-description" name="statikkshiv">
+                  Every 3rd attack deals 100 magical damage to 3 total enemies.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/tearofthegoddess.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/seraphsembrace.png"
+                  />
+                </div>
+                <div class="item-description" name="seraphsembrace">
+                  Regain 20 mana each time a spell is cast.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/chainvest.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/frozenheart.png"
+                  />
+                </div>
+                <div class="item-description" name="frozenheart">
+                  Adjacent enemies lose 35% Attack Speed.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/negatroncloak.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/hush.png"
+                  />
+                </div>
+                <div class="item-description" name="hush">
+                  Attacks have a 33%% chance to prevent the enemy champion from
+                  gaining mana for 4 seconds.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/giantsbelt.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/redemption.png"
+                  />
+                </div>
+                <div class="item-description" name="redemption">
+                  At 25% health heal all nearby allies for 1200 HP.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/spatula.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/darkin.png"
+                  />
+                </div>
+                <div class="item-description" name="darkin">
+                  Wearer is also a Demon.
+                </div>
+              </div>
+            </div>
+          </div>
+        </label>
+        <!-- Chain vest ---------------------- -->
+        <label for="chainvest" class="item hover-item item-bf">
+          <input id="chainvest" type="checkbox" onclick="display(this)" />
+          <div class="item-image" id="chainvest-image">
+            <img
+              src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/chainvest.png"
+            />
+          </div>
+          <div class="combinations" id="chainvest-combinations">
+            <div class="items-list">
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/sparringgloves.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into new"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/iceborngauntlet.png"
+                  />
+                </div>
+                <div class="item-description" name="iceborngauntlet">
+                  On dodge, create an expandable zone that lowers Attack Speed
+                  by 35%.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/bfsword.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/guardianangel.png"
+                  />
+                </div>
+                <div class="item-description" name="guardianangel">
+                  Revives champion with 500 HP after 2 seconds.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/needlesslylargerod.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/locketoftheironsolari.png"
+                  />
+                </div>
+                <div class="item-description" name="locketoftheironsolari">
+                  On start of combat, allies 2 spaces to the left and right gain
+                  250 shield for 6s.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/recurvebow.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/phantomdancer.png"
+                  />
+                </div>
+                <div class="item-description" name="phantomdancer">
+                  Wearer dodges all Critical Strikes (including ability crits).
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/tearofthegoddess.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/frozenheart.png"
+                  />
+                </div>
+                <div class="item-description" name="frozenheart">
+                  Adjacent enemies lose 35% Attack Speed.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/chainvest.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/thornmail.png"
+                  />
+                </div>
+                <div class="item-description" name="thornmail">
+                  Reflect 100% of of physical damage mitigated as Magic Damage.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/negatroncloak.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/swordbreaker.png"
+                  />
+                </div>
+                <div class="item-description" name="swordbreaker">
+                  Attacks have a 25% to disarm.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/giantsbelt.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/redbuff.png"
+                  />
+                </div>
+                <div class="item-description" name="redbuff">
+                  Attacks burn for 20% of max HP over 10s and reduces healing by
+                  80%.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/spatula.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/knightsvow.png"
+                  />
+                </div>
+                <div class="item-description" name="knightsvow">
+                  Wearer is also a Knight.
+                </div>
+              </div>
+            </div>
+          </div>
+        </label>
+        <!-- Negatron cloak ---------------------- -->
+        <label for="negatron" class="item hover-item item-bf">
+          <input id="negatron" type="checkbox" onclick="display(this)" />
+          <div class="item-image" id="negatron-image">
+            <img
+              src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/negatroncloak.png"
+            />
+          </div>
+          <div class="combinations" id="negatron-combinations">
+            <div class="items-list">
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/sparringgloves.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into new"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/quicksilver.png"
+                  />
+                </div>
+                <div class="item-description" name="quicksilver">
+                  Prevents the next crowd control effect applied to the wearer.
+                  Refreshes every 5 seconds.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/bfsword.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/bloodthirster.png"
+                  />
+                </div>
+                <div class="item-description" name="bloodthirster">
+                  Attacks heal for 40% of damage.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/needlesslylargerod.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/ionicspark.png"
+                  />
+                </div>
+                <div class="item-description" name="ionicspark">
+                  Whenever an enemy casts a spell they take 125 true damage.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/recurvebow.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/cursedblade.png"
+                  />
+                </div>
+                <div class="item-description" name="cursedblade">
+                  Attacks have a 20% chance to Shrink (-1 enemy star, down to
+                  level 0).
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/tearofthegoddess.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/hush.png"
+                  />
+                </div>
+                <div class="item-description" name="hush">
+                  Attacks have a 33%% chance to prevent the enemy champion from
+                  gaining mana for 4 seconds.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/chainvest.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/swordbreaker.png"
+                  />
+                </div>
+                <div class="item-description" name="swordbreaker">
+                  Attacks have a 25% to disarm.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/negatroncloak.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/dragonsclaw.png"
+                  />
+                </div>
+                <div class="item-description" name="dragonsclaw">
+                  75% resistance to magic damage.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/giantsbelt.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/zephyr.png"
+                  />
+                </div>
+                <div class="item-description" name="zephyr">
+                  On start of combat banish an enemy for 5 seconds.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/spatula.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/runaanshurricane.png"
+                  />
+                </div>
+                <div class="item-description" name="runaanshurricane">
+                  Attacks hit 1 additional enemy. This extra hit does 75% damage
+                  and applies on-hit effects.
+                </div>
+              </div>
+            </div>
+          </div>
+        </label>
+        <!-- Giant belt ---------------------- -->
+        <label for="giantsbelt" class="item hover-item item-bf">
+          <input id="giantsbelt" type="checkbox" onclick="display(this)" />
+          <div class="item-image" id="giantsbelt-image">
+            <img
+              src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/giantsbelt.png"
+            />
+          </div>
+          <div class="combinations" id="giantsbelt-combinations">
+            <div class="items-list">
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/sparringgloves.png"
+                />
+                <div class="item-image new">
+                  <img
+                    class="item-into new"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/trapclaw.png"
+                  />
+                </div>
+                <div class="item-description" name="trapclaw">
+                  On combat begin, gain a spell shield. When it breaks, stun the
+                  champion who broke the shield.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/bfsword.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/zekesherald.png"
+                  />
+                </div>
+                <div class="item-description" name="zekesherald">
+                  On start of combat, allies 2 spaces to the left and right gain
+                  +15% Attack Speed.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/needlesslylargerod.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/morellonomicon.png"
+                  />
+                </div>
+                <div class="item-description" name="morellonomicon">
+                  Spells burn for 20% of max HP over 10s and reduces healing by
+                  80%.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/recurvebow.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/titanichydra.png"
+                  />
+                </div>
+                <div class="item-description" name="titanichydra">
+                  Attacks deal 3% Max Health to target and adjacent enemies
+                  behind them.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/tearofthegoddess.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/redemption.png"
+                  />
+                </div>
+                <div class="item-description" name="redemption">
+                  At 25% health heal all nearby allies for 1200 HP.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/chainvest.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/redbuff.png"
+                  />
+                </div>
+                <div class="item-description" name="redbuff">
+                  Attacks burn for 20% of max HP over 10s and reduces healing by
+                  80%.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/negatroncloak.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/zephyr.png"
+                  />
+                </div>
+                <div class="item-description" name="zephyr">
+                  On start of combat banish an enemy for 5 seconds.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/giantsbelt.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/warmogsarmor.png"
+                  />
+                </div>
+                <div class="item-description" name="warmogsarmor">
+                  Regenerate 6% missing Health per second.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/spatula.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/frozenmallet.png"
+                  />
+                </div>
+                <div class="item-description" name="frozenmallet">
+                  Wearer is also a Glacial.
+                </div>
+              </div>
+            </div>
+          </div>
+        </label>
+        <!-- spatula ---------------------- -->
+        <label for="spatula" class="item hover-item item-bf">
+          <input id="spatula" type="checkbox" onclick="display(this)" />
+          <div class="item-image" id="spatula-image">
+            <img
+              src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/spatula.png"
+            />
+          </div>
+          <div class="combinations" id="spatula-combinations">
+            <div class="items-list">
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/sparringgloves.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into new"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/mittens.png"
+                  />
+                </div>
+                <div class="item-description" name="mittens">
+                  Extra 10% Crit chance and 10% Dodge chance. Wearer is also a
+                  Yordle.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/bfsword.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/youmuusghostblade.png"
+                  />
+                </div>
+                <div class="item-description" name="youmuusghostblade">
+                  Wearer is also an Assassin.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/needlesslylargerod.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/yuumi.png"
+                  />
+                </div>
+                <div class="item-description" name="yuumi">
+                  Wearer is also a Sorcerer.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/recurvebow.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/bladeoftheruinedking.png"
+                  />
+                </div>
+                <div class="item-description" name="bladeoftheruinedking">
+                  Wearer is also a Blademaster.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/tearofthegoddess.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/darkin.png"
+                  />
+                </div>
+                <div class="item-description" name="darkin">
+                  Wearer is also a Demon.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/chainvest.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/knightsvow.png"
+                  />
+                </div>
+                <div class="item-description" name="knightsvow">
+                  Wearer is also a Knight.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/negatroncloak.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/runaanshurricane.png"
+                  />
+                </div>
+                <div class="item-description" name="runaanshurricane">
+                  Attacks hit 1 additional enemy. This extra hit does 75% damage
+                  and applies on-hit effects.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/giantsbelt.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/frozenmallet.png"
+                  />
+                </div>
+                <div class="item-description" name="frozenmallet">
+                  Wearer is also a Glacial.
+                </div>
+              </div>
+              <div class="item">
+                <img
+                  class="item-with"
+                  src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/spatula.png"
+                />
+                <div class="item-image">
+                  <img
+                    class="item-into"
+                    src="https://solomid-resources.s3.amazonaws.com/blitz/tft/items/forceofnature.png"
+                  />
+                </div>
+                <div class="item-description" name="forceofnature">
+                  Gain +1 to team size.
+                </div>
+              </div>
+            </div>
+          </div>
+        </label>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,500 @@
+@font-face {
+  font-family: Maison Neue;
+  src: url('https://solomid-resources.s3.amazonaws.com/blitz/ui/fonts/MaisonNeue-Book.ttf')
+    format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: Maison Neue;
+  src: url('https://solomid-resources.s3.amazonaws.com/blitz/ui/fonts/MaisonNeue-Bold.ttf')
+    format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+body {
+  user-select: none;
+  width: 100%;
+  height: 100%;
+  margin: 10px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.drops-bar {
+  position: absolute;
+  bottom: 5px;
+  left: 10px;
+  right: 10px;
+  font-family: Maison Neue, sans-serif;
+  font-weight: 400;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  height: 36px;
+  max-width: 475px;
+  color: white;
+  background: #070e1d;
+  border-radius: 5px;
+}
+.drops-bar img {
+  display: block;
+}
+
+.info-and-level {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  padding: 0 4px;
+  border-radius: 5px 0 0 5px;
+  transition: 0.15s ease;
+}
+.info-and-level:hover {
+  box-shadow: inset 0 -4px #343f57;
+}
+.info-and-level .level {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+}
+.info-and-level .level .level-icon {
+  height: 14px;
+  width: 14px;
+  margin-right: 4px;
+  margin-top: -2px;
+}
+.level-text-block {
+  font-weight: 700;
+  font-size: 16px;
+  padding-top: 2px;
+  display: none;
+}
+.current-level-2 .level-text-block.lvl-2 {
+  display: block;
+}
+.current-level-3 .level-text-block.lvl-3 {
+  display: block;
+}
+.current-level-4 .level-text-block.lvl-4 {
+  display: block;
+}
+.current-level-5 .level-text-block.lvl-5 {
+  display: block;
+}
+.current-level-6 .level-text-block.lvl-6 {
+  display: block;
+}
+.current-level-7 .level-text-block.lvl-7 {
+  display: block;
+}
+.current-level-8 .level-text-block.lvl-8 {
+  display: block;
+}
+.current-level-9 .level-text-block.lvl-9 {
+  display: block;
+}
+
+.drop-chances {
+  display: flex;
+  width: 80%;
+}
+.drop-chances .chance {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 67px;
+  width: 20%;
+  height: 36px;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+.drop-chances .chance:last-of-type {
+  border-radius: 0 5px 5px 0;
+}
+.drop-chances .chance:hover {
+  box-shadow: inset 0 -4px #343f57;
+}
+
+.chance-text {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  padding-top: 2px;
+  font-size: 14px;
+  color: #bbc9e0;
+  display: none;
+}
+.cost-1 .chance-text {
+  color: #91a4b7;
+}
+.cost-2 .chance-text {
+  color: #099853;
+}
+.cost-3 .chance-text {
+  color: #3fa4cd;
+}
+.cost-4 .chance-text {
+  color: #e50dc2;
+}
+.cost-5 .chance-text {
+  color: #daaa29;
+}
+.current-level-2 .chance-text.lvl-2 {
+  display: flex;
+}
+.current-level-3 .chance-text.lvl-3 {
+  display: flex;
+}
+.current-level-4 .chance-text.lvl-4 {
+  display: flex;
+}
+.current-level-5 .chance-text.lvl-5 {
+  display: flex;
+}
+.current-level-6 .chance-text.lvl-6 {
+  display: flex;
+}
+.current-level-7 .chance-text.lvl-7 {
+  display: flex;
+}
+.current-level-8 .chance-text.lvl-8 {
+  display: flex;
+}
+.current-level-9 .chance-text.lvl-9 {
+  display: flex;
+}
+.chance-text::before {
+  content: '';
+  height: 6px;
+  width: 6px;
+  margin-right: 4px;
+  margin-top: -3px;
+  border-radius: 50%;
+}
+.cost-1 .chance-text::before {
+  background: #485767;
+}
+.cost-2 .chance-text::before {
+  background: #099853;
+}
+.cost-3 .chance-text::before {
+  background: #3fa4cd;
+}
+.cost-4 .chance-text::before {
+  background: #e50dc2;
+}
+.cost-5 .chance-text::before {
+  background: #daaa29;
+}
+
+.chance-champs {
+  box-sizing: border-box;
+  width: 458px;
+  width: 100%;
+  padding: 12px;
+  background: #070e1d;
+  position: absolute;
+  left: 0;
+  bottom: 36px;
+  display: none;
+  pointer-events: none;
+  border-radius: 5px;
+}
+.chance-champs .champs-frame {
+  display: flex;
+  align-items: center;
+}
+.chance-champs .champ-grid {
+  width: 280px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.chance-champs .champ {
+  max-width: 100%;
+  height: auto;
+  margin: 0 2px 2px 0;
+  border-radius: 5px;
+  border: 1px solid;
+  width: 36px;
+  height: 36px;
+}
+.cost-1 .chance-champs .champ {
+  border-color: #485767;
+}
+.cost-2 .chance-champs .champ {
+  border-color: #099853;
+}
+.cost-3 .chance-champs .champ {
+  border-color: #3fa4cd;
+}
+.cost-4 .chance-champs .champ {
+  border-color: #e50dc2;
+}
+.cost-5 .chance-champs .champ {
+  border-color: #daaa29;
+}
+.chance-champs .champs-available {
+  text-align: center;
+  line-height: 1.5;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 8px;
+}
+.chance-champs .champs-available .cost-pill {
+  margin-bottom: 4px;
+}
+.chance-champs .champs-available .available-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 2px;
+  letter-spacing: 0.25px;
+}
+.chance-champs .champs-available .available-subtitle {
+  font-size: 11px;
+  color: #7986a3;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.info .info-icon {
+  fill: white;
+  height: 18px;
+  width: 18px;
+}
+
+.info-frame {
+  box-sizing: border-box;
+  width: 458px;
+  width: 100%;
+  padding: 16px 0 8px;
+  background: #070e1d;
+  position: absolute;
+  left: 0;
+  bottom: 36px;
+  display: none;
+  pointer-events: none;
+  border-radius: 5px;
+}
+.info-frame .level-row {
+  display: flex;
+  height: 24px;
+  font-size: 13px;
+  padding-top: 4px;
+  line-height: 1.5;
+  color: #bbc9e0;
+  opacity: 0.2;
+}
+.info-frame .level-row .level-cell {
+  display: flex;
+  align-items: center;
+  width: 15%;
+  font-weight: 700;
+  padding-left: 14px;
+}
+.info-frame .level-row .level-icon {
+  height: 12px;
+  width: 12px;
+  margin-right: 4px;
+  margin-top: -4px;
+  opacity: 0;
+}
+.info-frame .level-row .chance {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.info-frame .level-row .chance:last-of-type {
+  padding-right: 4px;
+}
+.info-frame .level-row .chance::before {
+  content: '';
+  height: 6px;
+  width: 6px;
+  margin-right: 4px;
+  margin-top: -2px;
+  border-radius: 50%;
+  opacity: 0;
+}
+.info-frame .level-row .chance:nth-child(2).has:before {
+  background: #485767;
+}
+.info-frame .level-row .chance:nth-child(3).has:before {
+  background: #099853;
+}
+.info-frame .level-row .chance:nth-child(4).has:before {
+  background: #3fa4cd;
+}
+.info-frame .level-row .chance:nth-child(5).has:before {
+  background: #e50dc2;
+}
+.info-frame .level-row .chance:nth-child(6).has:before {
+  background: #daaa29;
+}
+.info-frame .header-row {
+  height: auto;
+  margin-bottom: 0px;
+  padding: 0;
+  opacity: 1;
+}
+.info-frame .header-row .chance {
+  flex-direction: column;
+  font-size: 11px;
+  color: #7986a3;
+  padding-left: 8px;
+}
+.info-frame .header-row .chance::before {
+  content: none;
+}
+.info-frame .header-row .cost-pill {
+  margin-bottom: 2px;
+}
+
+.current-level-2 .info-level-2 {
+  background: #2f3b54;
+  font-weight: 700;
+  opacity: 1;
+}
+.current-level-2 .info-level-2 .chance::before {
+  opacity: 1;
+}
+.current-level-2 .info-level-2 ~ .level-row {
+  opacity: 1;
+}
+
+.current-level-3 .info-level-3 {
+  background: #2f3b54;
+  color: #e5ebef;
+  font-weight: 700;
+  opacity: 1;
+}
+.current-level-3 .info-level-3 .chance::before,
+.current-level-3 .info-level-3 .level-icon,
+.current-level-3 .info-level-3 ~ .level-row {
+  opacity: 1;
+}
+.current-level-3 .info-level-3 .level-cell {
+  color: #e5ebef;
+}
+
+.current-level-4 .info-level-4 {
+  background: #2f3b54;
+  color: #e5ebef;
+  font-weight: 700;
+  opacity: 1;
+}
+.current-level-4 .info-level-4 .chance::before,
+.current-level-4 .info-level-4 .level-icon,
+.current-level-4 .info-level-4 ~ .level-row {
+  opacity: 1;
+}
+.current-level-4 .info-level-4 .level-cell {
+  color: #e5ebef;
+}
+
+.current-level-5 .info-level-5 {
+  background: #2f3b54;
+  opacity: 1;
+}
+.current-level-5 .info-level-5 .chance::before,
+.current-level-5 .info-level-5 .level-icon,
+.current-level-5 .info-level-5 ~ .level-row {
+  opacity: 1;
+}
+.current-level-5 .info-level-5 .level-cell {
+  color: #e5ebef;
+}
+
+.current-level-6 .info-level-6 {
+  background: #2f3b54;
+  opacity: 1;
+}
+.current-level-6 .info-level-6 .chance::before,
+.current-level-6 .info-level-6 .level-icon,
+.current-level-6 .info-level-6 ~ .level-row {
+  opacity: 1;
+}
+.current-level-6 .info-level-6 .level-cell {
+  color: #e5ebef;
+}
+
+.current-level-7 .info-level-7 {
+  background: #2f3b54;
+  opacity: 1;
+}
+.current-level-7 .info-level-7 .chance::before,
+.current-level-7 .info-level-7 .level-icon,
+.current-level-7 .info-level-7 ~ .level-row {
+  opacity: 1;
+}
+.current-level-7 .info-level-7 .level-cell {
+  color: #e5ebef;
+}
+
+.current-level-8 .info-level-8 {
+  background: #2f3b54;
+  opacity: 1;
+}
+.current-level-8 .info-level-8 .chance::before,
+.current-level-8 .info-level-8 .level-icon,
+.current-level-8 .info-level-8 ~ .level-row {
+  opacity: 1;
+}
+.current-level-8 .info-level-8 .level-cell {
+  color: #e5ebef;
+}
+
+.current-level-9 .info-level-9 {
+  background: #2f3b54;
+  opacity: 1;
+}
+.current-level-9 .info-level-9 .chance::before,
+.current-level-9 .info-level-9 .level-icon,
+.current-level-9 .info-level-9 ~ .level-row {
+  opacity: 1;
+}
+.current-level-9 .info-level-9 .level-cell {
+  color: #e5ebef;
+}
+
+.cost-pill {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2px 6px 0;
+  margin-bottom: 6px;
+  border-radius: 3px;
+}
+.cost-1 .cost-pill {
+  background: #485767;
+}
+.cost-2 .cost-pill {
+  background: #099853;
+}
+.cost-3 .cost-pill {
+  background: #3fa4cd;
+}
+.cost-4 .cost-pill {
+  background: #e50dc2;
+}
+.cost-5 .cost-pill {
+  background: #daaa29;
+}
+.cost-pill .gold-icon {
+  height: 10px;
+  width: 10px;
+  margin-right: 4px;
+  margin-top: -2px;
+}
+.cost-pill .gold-text {
+  font-size: 12px;
+  color: white;
+}

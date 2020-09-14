@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <style>
+      body {
+        overflow: hidden;
+        background-color: transparent;
+        margin: 0px;
+        height: 50px;
+        width: 200px;
+      }
+      #label {
+        color: lime;
+      }
+    </style>
+    <title>OsrWindow</title>
+  </head>
+
+  <body>
+    <label id="label"></label><br />
+    <script>
+      const label = document.getElementById('label');
+      const { ipcRenderer, remote } = window.require('electron');
+      ipcRenderer.on('fps', (event, fps) => {
+        label.innerText = `fps: ${fps}`;
+      });
+    </script>
+  </body>
+</html>

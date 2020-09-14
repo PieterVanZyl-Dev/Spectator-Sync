@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link rel="stylesheet" href="tft-rate.css" />
+  </head>
+  <body>
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const level = urlParams.get('level');
+      document.addEventListener('DOMContentLoaded', event => {
+        const dropBar = document.querySelector('.drops-bar');
+        dropBar.className += ` current-level-${level}`;
+      });
+    </script>
+    <script>
+      var currentLevel;
+      function display(elm) {
+        var level = elm.getAttribute('id');
+        var levelElement;
+        var levelElementDropUp;
+        if (level === 'info-and-level') {
+          levelElement = document.getElementById(level);
+          levelElementDropUp = levelElement.getElementsByClassName(
+            'info-frame'
+          )[0];
+        } else {
+          levelElement = document.getElementById(level);
+          levelElementDropUp = levelElement.getElementsByClassName(
+            'chance-champs'
+          )[0];
+        }
+
+        console.log(currentLevel, level);
+
+        if (currentLevel === level) {
+          levelElement.style.background = '#070e1d';
+          levelElementDropUp.style.display = 'none';
+          currentLevel = null;
+        } else if (currentLevel && currentLevel !== level) {
+          var currentLevelElement = document.getElementById(currentLevel);
+          var currentLevelDropUp;
+
+          if (currentLevel === 'info-and-level') {
+            currentLevelDropUp = currentLevelElement.getElementsByClassName(
+              'info-frame'
+            )[0];
+          } else {
+            currentLevelDropUp = currentLevelElement.getElementsByClassName(
+              'chance-champs'
+            )[0];
+          }
+
+          currentLevelElement.style.background = '#070e1d';
+          currentLevelDropUp.style.display = 'none';
+
+          levelElementDropUp.style.display = 'block';
+          levelElement.style.background = '#182338';
+
+          currentLevel = level;
+        } else {
+          levelElementDropUp.style.display = 'block';
+          levelElement.style.background = '#182338';
+          currentLevel = level;
+        }
+      }
+    </script>
+    <svg style="display: none;">
+      <defs>
+        <symbol viewBox="0 0 18 18" id="level-svg">
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M17.25 10.3125L9 1.875L0.75 10.3125L3.09375 12.75L9 6.75L14.9062 12.75L17.25 10.3125ZM4.125 13.875L6.375 16.125L9 13.5L11.625 16.125L13.875 13.875L9 9L4.125 13.875Z"
+            fill="#5BBCFF"
+          />
+        </symbol>
+        <symbol viewBox="0 0 24 24" id="info-svg">
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V11H13V17ZM13 9H11V7H13V9Z"
+            fill="#7986A3"
+          />
+        </symbol>
+        <symbol id="gold-svg" viewBox="0 0 10 10">
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M5.78126 1.26552C7.78126 1.11448 9.48438 2.08323 9.57813 3.41136C9.65105 4.38531 8.82813 5.29156 7.59376 5.76031C7.63542 5.88011 7.65626 5.9999 7.66667 6.1249C7.76563 7.45302 6.22917 8.59365 4.21875 8.73948C2.20834 8.88531 0.520837 7.97386 0.421879 6.64573C0.35417 5.67177 1.17188 4.76552 2.40625 4.29677C2.36459 4.17698 2.34375 4.05719 2.33334 3.93219C2.23438 2.60406 3.78125 1.41656 5.78126 1.26552ZM1.40625 6.45823C1.31771 7.08323 2.33334 7.96344 4.16667 7.8124C6 7.66135 6.55729 6.90615 6.28125 6.05719C6.26462 6.05885 6.24799 6.06104 6.2312 6.06326C6.19538 6.06799 6.15879 6.07281 6.11979 6.07281C4.8125 6.16656 3.63021 5.78115 2.94271 5.1301C2.1823 5.28635 1.5 5.8124 1.40625 6.45823Z"
+            fill="#fff"
+          />
+        </symbol>
+      </defs>
+    </svg>
+
+    <div class="drops-bar">
+      <div class="info-and-level" id="info-and-level" onclick="display(this)">
+        <div class="info">
+          <svg class="info-icon"><use xlink:href="#info-svg"></use></svg>
+          <div class="info-frame" id="info-frame">
+            <div class="level-row header-row">
+              <div class="level-cell"></div>
+              <div class="chance cost-1">
+                <div class="cost-pill">
+                  <svg class="gold-icon">
+                    <use xlink:href="#gold-svg"></use>
+                  </svg>
+                  <span class="gold-text">1</span>
+                </div>
+                (39)
+              </div>
+              <div class="chance cost-2">
+                <div class="cost-pill">
+                  <svg class="gold-icon">
+                    <use xlink:href="#gold-svg"></use>
+                  </svg>
+                  <span class="gold-text">2</span>
+                </div>
+                (26)
+              </div>
+              <div class="chance cost-3">
+                <div class="cost-pill">
+                  <svg class="gold-icon">
+                    <use xlink:href="#gold-svg"></use>
+                  </svg>
+                  <span class="gold-text">3</span>
+                </div>
+                (18)
+              </div>
+              <div class="chance cost-4">
+                <div class="cost-pill">
+                  <svg class="gold-icon">
+                    <use xlink:href="#gold-svg"></use>
+                  </svg>
+                  <span class="gold-text">4</span>
+                </div>
+                (13)
+              </div>
+              <div class="chance cost-5">
+                <div class="cost-pill">
+                  <svg class="gold-icon">
+                    <use xlink:href="#gold-svg"></use>
+                  </svg>
+                  <span class="gold-text">5</span>
+                </div>
+                (10)
+              </div>
+            </div>
+            <div class="level-row info-level-2">
+              <div class="level-cell">
+                <span>Lvl 2:</span>
+              </div>
+              <div class="chance has">100%</div>
+              <div class="chance"></div>
+              <div class="chance"></div>
+              <div class="chance"></div>
+              <div class="chance"></div>
+            </div>
+            <div class="level-row info-level-3">
+              <div class="level-cell">
+                <span>Lvl 3:</span>
+              </div>
+              <div class="chance has">70%</div>
+              <div class="chance has">25%</div>
+              <div class="chance has">5%</div>
+              <div class="chance"></div>
+              <div class="chance"></div>
+            </div>
+            <div class="level-row info-level-4">
+              <div class="level-cell">
+                <span>Lvl 4:</span>
+              </div>
+              <div class="chance has">50%</div>
+              <div class="chance has">35%</div>
+              <div class="chance has">15%</div>
+              <div class="chance"></div>
+              <div class="chance"></div>
+            </div>
+            <div class="level-row info-level-5">
+              <div class="level-cell">
+                <span>Lvl 5:</span>
+              </div>
+              <div class="chance has">35%</div>
+              <div class="chance has">35%</div>
+              <div class="chance has">25%</div>
+              <div class="chance has">5%</div>
+              <div class="chance"></div>
+            </div>
+            <div class="level-row info-level-6">
+              <div class="level-cell">
+                <span>Lvl 6:</span>
+              </div>
+              <div class="chance has">25%</div>
+              <div class="chance has">35%</div>
+              <div class="chance has">30%</div>
+              <div class="chance has">10%</div>
+              <div class="chance"></div>
+            </div>
+            <div class="level-row info-level-7">
+              <div class="level-cell">
+                <span>Lvl 7:</span>
+              </div>
+              <div class="chance has">20%</div>
+              <div class="chance has">30%</div>
+              <div class="chance has">33%</div>
+              <div class="chance has">15%</div>
+              <div class="chance has">2%</div>
+            </div>
+            <div class="level-row info-level-8">
+              <div class="level-cell">
+                <span>Lvl 8:</span>
+              </div>
+              <div class="chance has">15%</div>
+              <div class="chance has">25%</div>
+              <div class="chance has">35%</div>
+              <div class="chance has">20%</div>
+              <div class="chance has">5%</div>
+            </div>
+            <div class="level-row info-level-9">
+              <div class="level-cell">
+                <span>Lvl 9:</span>
+              </div>
+              <div class="chance has">10%</div>
+              <div class="chance has">15%</div>
+              <div class="chance has">33%</div>
+              <div class="chance has">30%</div>
+              <div class="chance has">12%</div>
+            </div>
+          </div>
+        </div>
+        <div class="level">
+          <svg class="level-icon" fill="none">
+            <use xlink:href="#level-svg"></use>
+          </svg>
+          <span class="level-text-block lvl-2">2</span>
+          <span class="level-text-block lvl-3">3</span>
+          <span class="level-text-block lvl-4">4</span>
+          <span class="level-text-block lvl-5">5</span>
+          <span class="level-text-block lvl-6">6</span>
+          <span class="level-text-block lvl-7">7</span>
+          <span class="level-text-block lvl-8">8</span>
+          <span class="level-text-block lvl-9">9</span>
+        </div>
+      </div>
+      <div class="drop-chances">
+        <div class="chance cost-1" id="cost-1" onclick="display(this)">
+          <!-- Cost 1 units -->
+          <span class="chance-text lvl-2">100%</span>
+          <span class="chance-text lvl-3">70%</span>
+          <span class="chance-text lvl-4">50%</span>
+          <span class="chance-text lvl-5">35%</span>
+          <span class="chance-text lvl-6">25%</span>
+          <span class="chance-text lvl-7">20%</span>
+          <span class="chance-text lvl-8">15%</span>
+          <span class="chance-text lvl-9">10%</span>
+          <div class="chance-champs">
+            <div class="champs-frame">
+              <div class="champ-grid">
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Darius.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Elise.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Fiora.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Garen.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Graves.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Kassadin.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Khazix.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Mordekaiser.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Nidalee.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Tristana.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Vayne.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Warwick.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Camille.png"
+                  class="champ"
+                  alt=""
+                />
+              </div>
+              <div class="champs-available">
+                <div class="cost-pill">
+                  <svg class="gold-icon">
+                    <use xlink:href="#gold-svg"></use>
+                  </svg>
+                  <span class="gold-text">1</span>
+                </div>
+                <div class="available-title">39</div>
+                <div class="available-subtitle">Of each champion</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="chance cost-2" id="cost-2" onclick="display(this)">
+          <!-- Cost 2 units -->
+          <span class="chance-text lvl-2">0%</span>
+          <span class="chance-text lvl-3">30%</span>
+          <span class="chance-text lvl-4">35%</span>
+          <span class="chance-text lvl-5">35%</span>
+          <span class="chance-text lvl-6">35%</span>
+          <span class="chance-text lvl-7">30%</span>
+          <span class="chance-text lvl-8">25%</span>
+          <span class="chance-text lvl-9">15%</span>
+          <div class="chance-champs">
+            <div class="champs-frame">
+              <div class="champ-grid">
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Ahri.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Blitzcrank.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Braum.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Lissandra.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Lucian.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Lulu.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Pyke.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/RekSai.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Shen.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/TwistedFate.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Varus.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Zed.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Jayce.png"
+                  class="champ"
+                  alt=""
+                />
+              </div>
+              <div class="champs-available">
+                <div class="cost-pill">
+                  <svg class="gold-icon">
+                    <use xlink:href="#gold-svg"></use>
+                  </svg>
+                  <span class="gold-text">2</span>
+                </div>
+                <div class="available-title">26</div>
+                <div class="available-subtitle">Of each champion</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="chance cost-3" id="cost-3" onclick="display(this)">
+          <!-- Cost 3 units -->
+          <span class="chance-text lvl-2">0%</span>
+          <span class="chance-text lvl-3">5%</span>
+          <span class="chance-text lvl-4">15%</span>
+          <span class="chance-text lvl-5">25%</span>
+          <span class="chance-text lvl-6">30%</span>
+          <span class="chance-text lvl-7">33%</span>
+          <span class="chance-text lvl-8">35%</span>
+          <span class="chance-text lvl-9">33%</span>
+          <div class="chance-champs">
+            <div class="champs-frame">
+              <div class="champ-grid">
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Aatrox.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Ashe.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Evelynn.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Gangplank.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Katarina.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Kennen.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Morgana.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Poppy.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Rengar.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Shyvana.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Veigar.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Volibear.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Vi.png"
+                  class="champ"
+                  alt=""
+                />
+              </div>
+              <div class="champs-available">
+                <div class="cost-pill">
+                  <svg class="gold-icon">
+                    <use xlink:href="#gold-svg"></use>
+                  </svg>
+                  <span class="gold-text">3</span>
+                </div>
+                <div class="available-title">18</div>
+                <div class="available-subtitle">Of each champion</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="chance cost-4" id="cost-4" onclick="display(this)">
+          <!-- Cost 4 units -->
+          <span class="chance-text lvl-2">0%</span>
+          <span class="chance-text lvl-3">0%</span>
+          <span class="chance-text lvl-4">0%</span>
+          <span class="chance-text lvl-5">5%</span>
+          <span class="chance-text lvl-6">10%</span>
+          <span class="chance-text lvl-7">15%</span>
+          <span class="chance-text lvl-8">20%</span>
+          <span class="chance-text lvl-9">30%</span>
+          <div class="chance-champs">
+            <div class="champs-frame">
+              <div class="champ-grid">
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Akali.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/AurelionSol.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Brand.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Chogath.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Draven.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Gnar.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Kindred.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Leona.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Sejuani.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Jinx.png"
+                  class="champ"
+                  alt=""
+                />
+              </div>
+              <div class="champs-available">
+                <div class="cost-pill">
+                  <svg class="gold-icon">
+                    <use xlink:href="#gold-svg"></use>
+                  </svg>
+                  <span class="gold-text">4</span>
+                </div>
+                <div class="available-title">13</div>
+                <div class="available-subtitle">Of each champion</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="chance cost-5" id="cost-5" onclick="display(this)">
+          <!-- Cost 5 units -->
+          <span class="chance-text lvl-2">0%</span>
+          <span class="chance-text lvl-3">0%</span>
+          <span class="chance-text lvl-4">0%</span>
+          <span class="chance-text lvl-5">0%</span>
+          <span class="chance-text lvl-6">0%</span>
+          <span class="chance-text lvl-7">2%</span>
+          <span class="chance-text lvl-8">5%</span>
+          <span class="chance-text lvl-9">12%</span>
+          <div class="chance-champs">
+            <div class="champs-frame">
+              <div class="champ-grid">
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Anivia.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Karthus.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Kayle.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/MissFortune.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Swain.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Yasuo.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Pantheon.png"
+                  class="champ"
+                  alt=""
+                />
+                <img
+                  src="https://ddragon.leagueoflegends.com/cdn/9.16.1/img/champion/Kaisa.png"
+                  class="champ"
+                  alt=""
+                />
+              </div>
+              <div class="champs-available">
+                <div class="cost-pill">
+                  <svg class="gold-icon">
+                    <use xlink:href="#gold-svg"></use>
+                  </svg>
+                  <span class="gold-text">5</span>
+                </div>
+                <div class="available-title">10</div>
+                <div class="available-subtitle">Of each champion</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
+body {
+  user-select: none;
+  width: 100%;
+  height: 100%;
+  margin: 5px;
+  overflow: hidden;
+}
+.items-bar {
+  position: absolute;
+  height: 46px;
+  font-family: Maison Neue, 'Roboto', sans-serif;
+  font-weight: 400;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 0 4px;
+  color: white;
+  background: #070e1d;
+  border-radius: 5px;
+}
+
+.items-bar:hover {
+  border-radius: 5px;
+}
+
+.items-bar img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input[type='checkbox'] {
+  display: none;
+}
+
+/* input[type='checkbox']:checked ~ .item-image {
+  border-color: #bbc9e0 !important;
+  opacity: 1 !important;
+} */
+
+input[type='checkbox']:checked ~ .item-image .checkmark {
+  display: block;
+}
+
+.items-list {
+  display: flex;
+}
+
+.items-list .item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 0 2px;
+  cursor: pointer;
+}
+
+/* .items-list .item:hover .combinations {
+  display: block;
+} */
+
+.items-list .item-image {
+  height: 36px;
+  width: 36px;
+  border: 1px solid #343f57;
+  border-radius: 5px;
+  box-sizing: border-box;
+  position: relative;
+  transition: 0.1s ease;
+}
+
+.items-list .item-image img {
+  border-radius: 5px;
+  border: 1px solid black;
+  box-sizing: border-box;
+}
+
+img.new {
+  box-shadow: 0 0 7px rgba(27, 207, 208, 0.5), 0 0 3px rgba(255, 255, 255, 0.6),
+    0 0 0 1px #3a9696;
+}
+
+.items-list .combinations {
+  display: none;
+  box-sizing: border-box;
+  width: 100%;
+  position: absolute;
+  top: 46px;
+  left: 0;
+  padding: 20px 4px 8px;
+  background: #070e1d;
+  border-radius: 5px;
+}
+
+.items-list .combinations .item-with {
+  position: absolute;
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  top: 0px;
+  border: 3px solid #070e1d;
+  z-index: 1;
+}
+
+.item-description {
+  display: none;
+  position: absolute;
+  top: 60px;
+  background: #070e1d;
+  color: #bbc9e0;
+  left: 0;
+  right: 0;
+  border-radius: 0 0 5px 5px;
+  padding: 4px 8px 4px;
+  font-size: 11px;
+  line-height: 1.5;
+  align-items: center;
+}
+
+.combinations .item:hover .item-image {
+  border-color: #a1acc3;
+}
+
+.combinations .item:hover .item-description {
+  display: flex;
+}
