@@ -46,9 +46,13 @@
   },
   "dependencies": {
     "axios": "^0.20.0",
+    "electron-log": "^4.2.4",
+    "electron-overlay": "^1.0.4",
+    "electron-rebuild": "^2.0.3",
     "electron-squirrel-startup": "^1.0.0",
+    "electron-store": "^6.0.1",
     "ffi-napi": "^3.0.1",
-    "node-dll-injector": "^0.2.3",
+    "league-injector": "0.0.12",
     "node-gyp": "^7.1.0",
     "ref-napi": "^3.0.1"
   },
@@ -58,6 +62,6 @@
     "@electron-forge/maker-rpm": "6.0.0-beta.53",
     "@electron-forge/maker-squirrel": "6.0.0-beta.53",
     "@electron-forge/maker-zip": "6.0.0-beta.53",
-    "electron": "10.1.1"
+    "electron": "8.3.1"
   }
 }

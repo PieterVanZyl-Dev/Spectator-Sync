@@ -14,4 +14,5 @@ const appEntry = new Application();
 // ElectronApp.on('activate', () => {
 //     appEntry.activate();
 // });
+
 module.exports = appEntry;

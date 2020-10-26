@@ -12,7 +12,7 @@ class SharedStore {
 
   listenToChanges() {
     ipcMain.on('lolSrOverlaySettingsChange', (e, data) => {
-      log.info('lolSrOverlaySettingsChange ', data);
+      //log.info('lolSrOverlaySettingsChange ', data);
       this.mergeWith(data);
     });
   }
@@ -26,7 +26,7 @@ class SharedStore {
   }
 
   set(key, val) {
-    log.info('Set shared store ', key, val);
+    //log.info('Set shared store ', key, val);
     this.conf[key] = val;
   }
 

@@ -3,6 +3,8 @@ const path = require('path');
 const sharedStore = require('./sharedStore');
 const os = require('os');
 
+const log = require('electron-log');
+
 let mainWindow;
 const osVersion = os.release();
 
@@ -22,6 +24,11 @@ sharedStore.mergeWith({
   assignedRole: null,
 });
 
+require('./overlayHelper.js');
+
+
+log.transports.console.format = '{h}:{i}:{s} {text}';
+log.transports.file.getFile();
 
 
 
@@ -57,7 +64,8 @@ const createWindow = () => {
     backgroundColor: '#1b2838',
   });
   // and load the index.html of the app.
-  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+  mainWindow.loadURL('file://' + __dirname + '/index.html');
+
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();

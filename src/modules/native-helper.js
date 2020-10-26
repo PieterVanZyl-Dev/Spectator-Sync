@@ -3,11 +3,22 @@ const path = require('path');
 var ffi = require('ffi-napi');
 const electron = require('electron');
 //const wchar_t = require('./wchar_t')
-const { app } = electron;
+const log = require('electron-log');
+
+ 
+
 
 const BIN_PATH = path.join(__dirname, '/helper/');
 
 function loadDll(dllDir) {
+  try {
+
+    
+
+
+
+  
+
   let binPath = dllDir ? dllDir : BIN_PATH;
   process.chdir(binPath);
   var helper = ffi.Library('native-utils.dll', {
@@ -34,6 +45,12 @@ function loadDll(dllDir) {
     ...helper,
     getPathFromProcessName,
   };
+}
+catch(err) {
+  console.log(err);
+  log.warn(err);
+  
+}
 }
 
 const nativeWrapper = initNativeWrapper();

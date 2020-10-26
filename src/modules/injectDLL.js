@@ -4,11 +4,14 @@ const electron = require('electron');
 const fs = require('fs-extra');
 const store = require('./storeInstance');
 const { app } = electron;
+const log = require('electron-log');
 
 // Electron only allows execFile within ASAR.
 
+log.info("============================Inject DLL ! started running now =============================")
+
 const helperDllName = 'helper.dll';
-let helperDllPath = isDev
+let helperDllPath = true
   ? path.join(__dirname, 'helper', helperDllName)
   : path.join(
       app.getAppPath(),
@@ -20,10 +23,8 @@ let helperDllPath = isDev
     );
 
 async function injectDLLNode() {
-  if (!is.windows()) {
-    return null;
-  }
 
+  log.info("============================injectDLLNode started running now =============================")
   // Move the dll into an independent path and inject from there so that instllation doesn't fail
 
   let dllHolderDirectoryPath = path.join(
@@ -47,11 +48,14 @@ async function injectDLLNode() {
     log.error(e);
   }
 
+  log.info("============================Import blitz injector @injectdll =============================")
   const BlitzInjector = require('blitz-injector');
-  const injector = require('node-dll-injector');
+  //const injector = require('node-dll-injector');
   const processName = 'LeagueClient.exe';
+  const isLeagueRunning = BlitzInjector.isProcessRunning(processName);
+  log.info("============================Is Process Running @injectdll =============================")
+  log.info(isLeagueRunning)
 
-  const isLeagueRunning = injector.isProcessRunning(processName);
 
   const ErrorString = {
     1: 'Process is not open',
@@ -74,10 +78,14 @@ async function injectDLLNode() {
           log.error('PID_ERROR: invalid pid');
           return null;
         }
+          log.info("============================Import inject DLL helper.dll =============================")
         const eCode = BlitzInjector.injectDLL(
           leaguePID,
           `\\Blitz-helpers\\${app.getVersion()}\\helper.dll`
         );
+        log.info("DLL LOCATION", `\\Blitz-helpers\\${app.getVersion()}\\helper.dll`)
+        log.info("============================Ecode for helper =============================")
+        log.info(eCode)
         if (eCode) {
           log.info('112 1');
           store.set('leaguePID', leaguePID);

@@ -3,21 +3,27 @@
 const electron = require('electron')
 const {ipcMain} = electron
 const sharedStore = require('./sharedStore');
+const log = require('electron-log');
+
+ 
 
 ipcMain.on('isSROverlayEnabled', (e, enableOverlay) => {
-    if (!is.windows()) return null;
     sharedStore.set('isSROverlayEnabled', enableOverlay);
   });
 
 ipcMain.on('handleGameStartOverlays', (e, isTFT) => {
-    if (sharedStore.get('isSROverlayEnabled') && !isTFT) {
       const injectOverlayDLL = require('./modules/injectOverLayDLL.js');
+      log.info("Started HandleGameStartOverlays")
       injectOverlayDLL();
-    }
+      //const injectDLLNode = require('./modules/injectOverLayDLL.js');
+      //injectDLLNode();
+      //setTimeout(start, 4000);
+
   });
+  
+
 
   ipcMain.on('stopOverlay', () => {
-    if (!is.windows()) return null;
     if (!sharedStore.get('ElectronOverlay')) {
       sharedStore.set('ElectronOverlay', require('./modules/electron-overlay'));
     }

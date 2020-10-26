@@ -5,12 +5,17 @@ const path = require('path');
 const axios = require('axios');
 const { fileUrl, CONFIG } = require('../utils/utils');
 const { nativeWrapper } = require('../../native-helper');
-const apiServer = require('../../electronAPI');
+//const apiServer = require('../../electronAPI');
 //const proData = require('./proData');
 //const divisionData = require('./divisionData');
 const sharedStore = require('../../../sharedStore');
-//const log = require('electron-log');
-const get = require('lodash.get');
+
+const log = require('electron-log');
+//const get = require('lodash.get');
+
+
+
+
 let currentLevel = 1;
 
 let assignedRole;
@@ -21,6 +26,7 @@ let csChartXYPoints;
 let interval = 0;
 let goalCsPerMin = 0;
 let csArrayForCompare;
+
 
 const getRole = role => {
   switch (role) {
@@ -63,7 +69,7 @@ class Application {
     this.markQuit = false;
     this.windows = new Map();
     this.tray = null;
-    this.tftLevelPoll = null;
+    //this.tftLevelPoll = null;
     this.liveSRGameTimer = null;
     this.hasOverlayStarted = false;
     this.summonerName = '';
@@ -72,7 +78,7 @@ class Application {
   }
 
   setSummonerName() {
-    this.summonerName = get(apiServer, 'currentAccount.data.account.name', '');
+    //this.summonerName = get(apiServer, 'currentAccount.data.account.name', '');
   }
 
   getWindow(window) {
@@ -80,9 +86,12 @@ class Application {
   }
 
   startOverlay() {
+    log.info('===================== this electron overlay =====================');
     this.Overlay = require('electron-overlay');
+    log.info('===================== this overlay start  =====================');
     this.Overlay.start();
     this.setupIpc();
+    log.info('===================== Setup IPC    =====================');
     let computedWidth;
     let computedHeight;
     // setTimeout(() => {
@@ -92,8 +101,8 @@ class Application {
     //   });
     // }, 1000);
     this.Overlay.setHotkeys([
-      // { name: 'overlay.toggle', keyCode: 113, modifiers: { ctrl: true } },
-      // { name: 'tft.toggle', keyCode: 114, modifiers: { ctrl: true } },
+       { name: 'overlay.toggle', keyCode: 113, modifiers: { ctrl: true } },
+       { name: 'tft.toggle', keyCode: 114, modifiers: { ctrl: true } },
     ]);
     this.Overlay.setEventCallback((event, payload) => {
       if (event === 'game.input') {
@@ -120,9 +129,9 @@ class Application {
       ) {
         const { width, height } = payload;
         if (width === 0 || height === 0) return;
-        const tftRate = this.getWindow('tft-rate');
+        //const tftRate = this.getWindow('tft-rate');
         const csSrWindow = this.getWindow('sr-cs');
-
+        log.info('===================== Get window sr-cs=====================');
         if (csSrWindow) {
           let scale;
           if (!scale) {
@@ -189,12 +198,13 @@ class Application {
     captionHeight = 0,
     transparent = false
   ) {
-    this.setSummonerName();
+    //this.setSummonerName();
+    log.info('!+!+!+!+ Add overlay Window  !+!+!+!+');
 
     const display = screen.getDisplayNearestPoint(
       screen.getCursorScreenPoint()
     );
-
+    log.info('!+!+!+!+ Finally this.overlay.addwindow !+!+!+!+');
     this.Overlay.addWindow(window.id, {
       name,
       transparent,
@@ -217,14 +227,16 @@ class Application {
       },
       dragBorderWidth: dragborder,
     });
+    log.info('!+!+!+!+ end of add to injector !+!+!+!+');
     window.webContents.on('paint', (event, dirty, image) => {
       if (this.markQuit) {
         return;
       }
-
+      log.info('!+!+!+!+ Scale stuff !+!+!+!+');
       const scale = screen.getDisplayMatching(window.getBounds()).scaleFactor;
       const width = Math.round(image.getSize().width / scale);
       const height = Math.round(image.getSize().height / scale);
+      log.info('!+!+!+!+ Send frame buffer !+!+!+!+');
       this.Overlay.sendFrameBuffer(
         window.id,
         image.resize({ width, height }).getBitmap(),
@@ -319,57 +331,7 @@ class Application {
       window.focus();
     }
   }
-  reloadTFT() {
-    let level = sharedStore.get('patchVersion')
-      ? nativeWrapper.getLevel(
-          this.summonerName,
-          sharedStore.get('patchVersion')
-        )
-      : nativeWrapper.getLevel(this.summonerName);
-    if (level === 1) {
-      level = 2;
-    }
-    if (level > 9 || level < 1) return;
-    if (level === currentLevel) return;
-    this.reloadUrlWindow('tft-rate', `overlay/tft-rate.html?level=${level}`);
-    currentLevel = level;
-  }
 
-  pollTFTLevels() {
-    this.tftLevelPoll = setInterval(() => {
-      this.reloadTFT();
-    }, 1000);
-  }
-
-  startTFT() {
-    if (!this.hasOverlayStarted) {
-      this.startOverlay();
-      this.hasOverlayStarted = true;
-    }
-    currentLevel = 2;
-
-    this.createWindow(
-      'tft-rate',
-      {
-        width: 460,
-        height: 350,
-        resizable: false,
-      },
-      { filePath: 'overlay/tft-rate.html?level=2', debug: false }
-    );
-    // reread level every 1 sec
-
-    this.createWindow(
-      'tft-items',
-      {
-        width: 388,
-        height: 200,
-        x: 50,
-        y: 0,
-      },
-      { filePath: 'overlay/tft-items.html', debug: false }
-    );
-  }
 
   // Finds the current benchmark array CS based on current game interval
   getGoal(comparisonCsArray, interval) {
@@ -552,15 +514,29 @@ class Application {
   }
 
   handleLiveMatch() {
+    //log.info("------ Handle Live Match ------")
     let csWindow = this.getWindow('sr-cs');
+    //log.info("------  csWindow ------")
     if (!csWindow) return;
-    if (sharedStore.get('assignedRole') === 'support') {
-      this.closeWindow(csWindow);
-    }
-    if (sharedStore.get('assignedRole')) {
+    if (true) {
+      let csDiff = 99;
+      let cs = 99;
+      let interval = 8;
+      let goal = 99
+      let csPerMin = 99
+      csWindow.webContents.send('csInfo', {
+        csDiff,
+        cs,
+        interval: interval,
+        goal: goal,
+        csPerMin: csPerMin,
+        csPerMinGoal: goalCsPerMin
+      });
       let gameTimer = Number(
         nativeWrapper.getGameTime(sharedStore.get('patchVersion'))
       ).toFixed();
+      //log.info("------ Game Timer ! ------")
+      //log.info(gameTimer)
       if (gameTimer >= 15) {
         if (sharedStore.get('isSRReconnect')) {
           if (this.csScanningOffset) {
@@ -571,6 +547,8 @@ class Application {
           sharedStore.set('isSRReconnect', false);
         }
         let cs = nativeWrapper.getCS(sharedStore.get('patchVersion'));
+        //log.info("------ Creep Score ! ------")
+        //log.info(cs)
         if (cs === -1 || cs < 0 || cs > 500) cs = 0;
 
         let csDiff = 0;
@@ -692,7 +670,7 @@ class Application {
       this.startOverlay();
       this.hasOverlayStarted = true;
     }
-    if (sharedStore.get('assignedRole') === 'support') return;
+    //if (sharedStore.get('assignedRole') === 'support') return;
     this.createWindow(
       'sr-cs',
       {
@@ -703,20 +681,14 @@ class Application {
       { filePath: 'overlay/sr-cs.html', debug: false }
     );
 
+    
+  }
 /*     ipcMain.on('srOverlaySettingsChange', () => {
       //this.refreshBenchmarkArray();
     }); */
 
-    this.waitForRole()
-      .then(() => {
-        let assignedRole = getRole(sharedStore.get('assignedRole'));
-        log.info('Role found', assignedRole);
-        this.refreshBenchmarkArray();
-      })
-      .catch(() => {
-        log.error('Could not find role');
-      });
-  }
+
+
 
   stopSR() {
     const cs = nativeWrapper.getCS(sharedStore.get('patchVersion'));
@@ -731,7 +703,7 @@ class Application {
     assignedRole = null;
     ipcMain.removeListener(
       'srOverlaySettingsChange',
-      this.refreshBenchmarkArray
+      //this.refreshBenchmarkArray
     );
   }
 
@@ -745,20 +717,6 @@ class Application {
 
   activate() {}
 
-  waitForRole() {
-    let i = 0;
-    return new Promise((resolve, reject) => {
-      setInterval(() => {
-        if (sharedStore.get('assignedRole')) {
-          i++;
-          resolve();
-        }
-        if (i > 240) {
-          reject();
-        }
-      }, 250);
-    });
-  }
   quit() {
     this.markQuit = true;
     this.closeAllWindows();
@@ -775,16 +733,13 @@ class Application {
       this.hasOverlayStarted = false;
     }
   }
-  stopPollingTFT() {
-    if (this.tftLevelPoll) {
-      clearInterval(this.tftLevelPoll);
-      this.tftLevelPoll = null;
-    }
-  }
+
   openLink(url) {
     shell.openExternal(url);
   }
 
+
+  
   reloadUrlWindow(name, filePath) {
     const window = this.getWindow(name);
     window.loadURL(fileUrl(path.join(CONFIG.distDir, filePath)));
@@ -818,8 +773,8 @@ class Application {
     let window;
     if (!isMultiple) {
       window = this.getWindow(name);
-
-      if (window) return;
+      log.info('== Ran window this.getwindow ! ==');
+      //if (window) return;
     }
 
     window = new BrowserWindow({
@@ -829,13 +784,11 @@ class Application {
       y,
       resizable,
       frame,
-      show: debug,
-      transparent: !debug,
+      show: false,
+      transparent: true,
       webPreferences: {
-        offscreen: !debug,
-        // scale overlay accordingly
-        // zoomFactor: 1 / scale,
-        // transparent: true,
+        offscreen: true
+        //nodeIntegration:true
       },
     });
     this.windows.set(name, window);
@@ -847,67 +800,51 @@ class Application {
       shell.openExternal(url);
     });
     window.loadURL(fileUrl(path.join(CONFIG.distDir, filePath)));
-
+    log.info('== Ran up to this.addoverlaywindow ==');
     this.addOverlayWindow(name, window, dragBorder, captionHeight, true);
-    if (debug)
+    if (false)
       window.webContents.openDevTools({
         mode: 'detach',
       });
     setTimeout(async () => {
       window.webContents.setZoomFactor(1);
       window.setSize(window.getBounds().width, window.getBounds().height + 1);
-      this.localizeOverlays();
     }, 3000);
   }
 
-  async getlocalizedItems(language) {
-    return axios
-      .get(
-        `https://solomid-resources.s3.amazonaws.com/blitz/tft/localized/items-919/${language}.json`
-      )
-      .catch(err =>
-        log.error('======== OVERLAY GETLOCALIZEDITEMS ERROR ======== ', err)
-      );
-  }
 
-  async localizeOverlays(language = null) {
-    if (!language) language = get(apiServer, 'currentLanguage', 'en');
-    for (var [key, win] of this.windows) {
-      if (key === 'tft-items') {
-        const locales = await this.getlocalizedItems(language);
-        if (locales) win.webContents.send('changeLanguage', locales.data.items);
-      }
-      if (key === 'sr-cs') {
-        const locales = require(`../../../i18nResources/${language}.overlay`);
-        if (locales) win.webContents.send('changeLanguage', locales);
-      }
-    }
-  }
+
+
+
+
 
   setupIpc() {
-    // ipcMain.once('start', () => {
-    //     if (!this.Overlay) {
-    //         this.startOverlay();
-    //         this.createToolTip();
-    //         this.createFpsWindow();
-    //     }
-    // });
+     ipcMain.once('start', () => {
+       log.info("start !")
+         if (!this.Overlay) {
+          log.info("!!!!!!!!!")
+           this.startOverlay();
+             this.createToolTip();
+             this.createFpsWindow();
+             
+        }
+     });
     ipcMain.on('startIntercept', () => {
       this.Overlay.sendCommand({
         command: 'input.intercept',
         intercept: true,
       });
     });
+
     ipcMain.on('stopIntercept', () => {
       this.Overlay.sendCommand({
         command: 'input.intercept',
         intercept: false,
       });
     });
-    ipcMain.on('changeLanguage', async (e, language) => {
-      log.info('======== OVERLAY LANG ======== ', language);
-      this.localizeOverlays(language);
-    });
   }
 }
+
 module.exports = { Application };
+
+

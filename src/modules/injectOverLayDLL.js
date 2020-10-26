@@ -4,10 +4,18 @@ const electron = require('electron');
 const fs = require('fs-extra');
 const store = require('./storeInstance');
 const sharedStore = require('../sharedStore');
+const log = require('electron-log');
+//const injectDLL = require('../injectDLL');
+
 const { app } = electron;
 
+log.info("============================Inject DLL started running now =============================")
+
+
+
+
 const overlayDllName = 'n_overlay.dll';
-let overlayDllPath = isDev
+let overlayDllPath = true
   ? path.join(__dirname, 'helper', overlayDllName)
   : path.join(
       app.getAppPath(),
@@ -18,6 +26,7 @@ let overlayDllPath = isDev
       overlayDllName
     );
 
+    
 // Move the dll into an independent path and inject from there so that instllation doesn't fail
 const dllHolderDirectoryPath = path.join(
   app.getPath('userData'),
@@ -41,14 +50,18 @@ try {
 }
 
 async function injectDLLNode() {
-  if (!is.windows()) {
-    return null;
-  }
 
-  const BlitzInjector = require('blitz-injector');
+
+
+  log.info("============================injectDLLNode function ran =============================")
+
+  const BlitzInjector = require('league-injector');
+  log.info("============================blitz-injector function ran =============================")
   const processName = 'League of Legends.exe';
 
   const isLeagueRunning = BlitzInjector.isProcessRunning(processName);
+  log.info("============================Is Process Running =============================")
+  log.info(isLeagueRunning)
 
   const ErrorString = {
     1: 'Process is not open',
@@ -60,37 +73,24 @@ async function injectDLLNode() {
   };
 
   function startOverlay() {
-    if (
-      !sharedStore.get('isTFTOverlayStarted') &&
-      sharedStore.get('isTFTOverlayEnabled') &&
-      sharedStore.get('isTFT')
-    ) {
-      log.info('===================== STARTING TFT =====================');
-      const ElectronOverlay = require('./electron-overlay');
-      ElectronOverlay.startTFT();
-      ElectronOverlay.pollTFTLevels();
-      sharedStore.set('isTFTOverlayStarted', true);
-    }
-
-    if (
-      !sharedStore.get('isSROverlayStarted') &&
-      sharedStore.get('isSROverlayEnabled') &&
-      !sharedStore.get('isTFT')
-    ) {
+    if (true) {
       log.info('===================== STARTING SR =====================');
 
       if (sharedStore.get('assignedRole') === 'support') {
         log.info('YOU ARE SUP, NOT YET');
-        return;
       }
+      log.info('===================== Require electron overlay =====================');
       const ElectronOverlay = require('./electron-overlay');
+      log.info('===================== StartSR electron overlay =====================');
       ElectronOverlay.startSR();
       sharedStore.set('isTFTOverlayStarted', true);
     }
   }
 
-  if (isLeagueRunning) {
+  if (true) {
     try {
+      log.info('!!!!!!!!!!! is league running try block  !!!!!!!!!!');
+      
       const leagueGameId = BlitzInjector.findProcessId(processName);
       const savedPID = store.get('leagueGameId');
 
@@ -101,6 +101,8 @@ async function injectDLLNode() {
           return null;
         }
 
+
+
         store.set('leagueGameId', leagueGameId);
 
         setTimeout(() => {
@@ -108,8 +110,12 @@ async function injectDLLNode() {
             leagueGameId,
             `\\Blitz-helpers\\${app.getVersion()}\\n_overlay.dll`
           );
+          log.info("Overlay DLL ECODE")
+          log.info(overlayDllEcode)
           if (overlayDllEcode) {
-            log.info('===================== 112 1 =====================');
+            log.info("Overlay DLL ECODE")
+            log.info(overlayDllEcode)
+            log.info('===================== startoverlay() =====================');
             startOverlay();
           } else {
             log.error(`112 0: ${ErrorString[overlayDllEcode]}`);
