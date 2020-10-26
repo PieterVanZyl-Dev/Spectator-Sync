@@ -530,7 +530,8 @@ class Application {
         interval: interval,
         goal: goal,
         csPerMin: csPerMin,
-        csPerMinGoal: goalCsPerMin
+        csPerMinGoal: goalCsPerMin,
+        csChartXYPoints: this.convertPointsToString(csChartXYPoints)
       });
       let gameTimer = Number(
         nativeWrapper.getGameTime(sharedStore.get('patchVersion'))
